@@ -315,6 +315,13 @@ if(liveQuery) {
   });
 }
 
+try {
+    global.app = app;
+    require('cloud/app.js');
+} catch (e) {
+    console.log('cloud/app.js not yet there', e.message, e.stack);
+}
+
 // GraphQL
 var isSupportGraphQL = process.env.GRAPHQL_SUPPORT;
 var schemaURL = process.env.GRAPHQL_SCHEMA || './cloud/graphql/schema.js';
@@ -335,7 +342,7 @@ if(isSupportGraphQL){
         return require(schemaURL);
     }
 
-    var graphQLHTTP = require('express-graphql');
+    var graphQLHTTP = require('apollo-server-express');
     app.use('/graphql', graphQLHTTP(function(request){ return {
         graphiql: IS_DEVELOPMENT,
         pretty: IS_DEVELOPMENT,

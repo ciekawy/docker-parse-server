@@ -37,3 +37,4 @@ node_modules
 account_key.json
 *.key
 *.crt
+/.idea/
